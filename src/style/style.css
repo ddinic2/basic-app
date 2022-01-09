@@ -1,0 +1,61 @@
+body{
+    color: #4d4f5c;
+}
+.tableTitle{
+    font-size: 1.15rem;
+}
+.tab-input{
+    max-width: 10rem;
+    border-radius: 7px 7px 0 0;
+    margin-bottom: 0.4rem;
+    border-top: 2px solid #6dbdb4;
+    border-left: 2px solid #6dbdb4;
+    border-right: 2px solid #6dbdb4;
+    border-bottom: 1px solid lightgray;
+}
+.flex{
+    display: flex;
+}
+.flex-0_5{
+    flex: 0.5;
+}
+.flex-1{
+    flex: 1;
+}
+.flex-1_5{
+    flex: 1.5;
+}
+.flex-2{
+    flex: 2;
+}
+
+.bidListUl > li {
+    list-style-type: none;
+}
+.bidListUl {
+    padding: 0;
+}
+.extend-btn{
+    border: 2px solid #6dbdb4;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 5px;
+    color: #6dbdb4;
+    font-size: 1.2rem;
+    background-color: white;
+    position: relative;
+}
+.extend-btn > span {
+    position:absolute;
+    top: 0;
+    left: 5px;
+}
+.borderTableTitle{
+    border: 1px solid #e8e9ec;
+}
+.primaryBackground{
+    background-color: #f0f0f7;
+}
+.whiteBackground{
+    background-color: white;
+}
