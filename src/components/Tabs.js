@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import "../style/style.css";
 
 function Tabs({data}){
-    console.log('tabs', data);
     const [tabsArray, setTabsArray] = useState(data.concat(data[0].Items));
 
     const updateArray = (tab, value) => {

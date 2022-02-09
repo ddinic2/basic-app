@@ -6,12 +6,45 @@ import Line from "./Line";
 const App = () => {
     const [data, setData] = useState();
     const [activeTab, setActiveTab] = useState();
+    let allData;
 
     useEffect(() => {
         fetch('https://raw.githubusercontent.com/ddinic2/json/main/bid-list.txt')
             .then(response => response.json())
             .then(data => setData(data));
     }, []);
+
+    const updateLine = (item) => {
+        let copyData = data;
+        allData = data
+        findAndReplaceLine(copyData, item);
+        updateAllParent(copyData[0], item);
+        setData([...copyData]);
+    }
+
+    const findAndReplaceLine = (copyData, item)=>{
+        copyData.map(d => {
+            if(d.Id === item.Id){
+                d = item;
+            }
+            findAndReplaceLine(d.Items, item, d);
+        })
+    };
+
+    const updateAllParent = (copyData, item) => {
+        copyData.Items.forEach(el => {
+            if(el.Id === item.Id){
+                copyData.Budget = 0;
+                copyData.Quantity = 0;
+                copyData.Items.map(it=> {
+                    copyData.Budget += Number(it.Budget);
+                    copyData.Quantity += Number(it.Quantity);
+                })
+                updateAllParent(allData[0], copyData);
+            }
+            updateAllParent(el, item);
+        });
+    }
 
     return (
         <div className="container-fluid primaryBackground">
@@ -54,7 +87,7 @@ const App = () => {
                     Bottom up Budget
                 </div>
             </div>
-            {data && data.length > 0 && <Line data={ data } />}
+            {data && data.length > 0 && <Line data={ data } updateLine={updateLine} />}
         </div>
     )
 }

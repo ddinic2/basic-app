@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import "../node_modules/@fortawesome/fontawesome-free/css/fontawesome.css";
-import "../node_modules/@fortawesome/fontawesome-free/css/solid.css"; 
+import "../node_modules/@fortawesome/fontawesome-free/css/solid.css";
 import "../src/style/style.css";
 
 
 
-function Line({ data }) {
+function Line({ data, updateLine }) {
 
     const [displayChildren, setDisplayChildren] = useState({});
+
+    const setValueInItem = (e, item) =>{
+        console.log('change',e.target.placeholder);
+        item[e.target.placeholder] = e.target.value;
+        updateLine(item);
+    };
 
     return (
         <div className="whiteBackground">
@@ -16,7 +22,7 @@ function Line({ data }) {
                     <li key={item.Subject}>
                         <div className="flex">
                             <div className="flex-0_5">
-                                {item.Items.length > 0 && (
+                                {item.Items && item.Items.length > 0 && (
 
                                     <button className="extend-btn"
                                         onClick={() => {
@@ -26,7 +32,7 @@ function Line({ data }) {
                                             });
                                         }}
                                     >
-                                       <span>{displayChildren[item.Id] ? <i className="fas fa-minus"></i> : <i className="fas fa-plus"></i>}</span>
+                                        <span>{displayChildren[item.Id] ? <i className="fas fa-minus"></i> : <i className="fas fa-plus"></i>}</span>
                                     </button>
                                 )}
                             </div>
@@ -40,7 +46,7 @@ function Line({ data }) {
                                 {item.Description}
                             </div>
                             <div className="flex-1">
-                                {item.Quantity}
+                                <input disabled={(item.Items && item.Items.length > 0)? "disabled" : ""} className="form-control text-end" type='text' placeholder="Quantity" onChange={(e)=>setValueInItem(e, item)} value={item.Quantity} />
                             </div>
                             <div className="flex-1">
                                 {item.Unit}
@@ -55,21 +61,20 @@ function Line({ data }) {
                                 {item.AccountId}
                             </div>
                             <div className="flex-1_5 text-end">
-                                <spna>{item.Budget}</spna>
+                                <input disabled={(item.Items && item.Items.length > 0)? "disabled" : ""} className="form-control text-end" type='text' placeholder="Budget" onChange={(e)=>setValueInItem(e, item)} value={item.Budget} />
                             </div>
                         </div>
 
 
-                        {displayChildren[item.Id] && item.Items && <Line key={item.Subject} data={item.Items} />}
+                        {displayChildren[item.Id] && item.Items && <Line key={item.Subject} data={item.Items} updateLine={updateLine} />}
 
                     </li>
                 ))}
 
             </ul>
         </div>
-
-
     )
+
 }
 
 export default Line;
