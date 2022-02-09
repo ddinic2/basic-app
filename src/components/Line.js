@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "../node_modules/@fortawesome/fontawesome-free/css/fontawesome.css";
-import "../node_modules/@fortawesome/fontawesome-free/css/solid.css";
-import "../src/style/style.css";
+import "../../node_modules/@fortawesome/fontawesome-free/css/fontawesome.css";
+import "../../node_modules/@fortawesome/fontawesome-free/css/solid.css";
+import "../style/style.css";
 
 
 
@@ -16,11 +16,11 @@ function Line({ data, updateLine }) {
     };
 
     return (
-        <div className="whiteBackground">
-            <ul className="bidListUl">
+        <div>
+            <ul className="bidListUl fs-6">
                 {data.map(item => (
                     <li key={item.Subject}>
-                        <div className="flex">
+                        <div className="flex p-1 primary-border-bottom">
                             <div className="flex-0_5">
                                 {item.Items && item.Items.length > 0 && (
 
@@ -46,7 +46,7 @@ function Line({ data, updateLine }) {
                                 {item.Description}
                             </div>
                             <div className="flex-1">
-                                <input disabled={(item.Items && item.Items.length > 0)? "disabled" : ""} className="form-control text-end" type='text' placeholder="Quantity" onChange={(e)=>setValueInItem(e, item)} value={item.Quantity} />
+                                <input disabled={(item.Items && item.Items.length > 0)? "disabled" : ""} className="form-control form-control-sm text-end" type='text' placeholder="Quantity" onChange={(e)=>setValueInItem(e, item)} value={item.Quantity} />
                             </div>
                             <div className="flex-1">
                                 {item.Unit}
@@ -61,7 +61,7 @@ function Line({ data, updateLine }) {
                                 {item.AccountId}
                             </div>
                             <div className="flex-1_5 text-end">
-                                <input disabled={(item.Items && item.Items.length > 0)? "disabled" : ""} className="form-control text-end" type='text' placeholder="Budget" onChange={(e)=>setValueInItem(e, item)} value={item.Budget} />
+                                <input disabled={(item.Items && item.Items.length > 0)? "disabled" : ""} className="form-control form-control-sm text-end" type='text' placeholder="Budget" onChange={(e)=>setValueInItem(e, item)} value={item.Budget} />
                             </div>
                         </div>
 

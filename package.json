@@ -13,7 +13,7 @@
     "react-scripts": "5.0.0",
     "save-dev": "^0.0.1-security",
     "web-vitals": "^2.1.2",
-    "homepage": "https://github.com/ddinic2/ddinic2.github.io"
+    "homepage": "https://ddinic2.github.io/"
   },
   "scripts": {
     "start": "react-scripts start",
