@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import "../style/style.css";
 
-function Tabs({ data, updateLine }) {
+function Tabs({ data, updateLine, activeTab, setActiveTab }) {
     const [tabsArray, setTabsArray] = useState(data.concat(data[0].Items));
-    const [activeTab, setActiveTab] = useState(data[0]);
 
     const updateArray = (tab, value) => {
         tab.Subject = value;
@@ -17,11 +16,12 @@ function Tabs({ data, updateLine }) {
         setTabsArray([...copyTabs]);
     }
 
-    const tabHtml = tabsArray.map(tab => {
+    const tabHtml = tabsArray.map((tab, index) => {
         let active = tab.Id === activeTab.Id ? 'active' : '';
+        tab.index = index;
         return (
-            <div onClick={() => setActiveTab(tab)}>
-                <input key={tab.Id} type="text"
+            <div key={tab.Id} onClick={() => setActiveTab(tab)}>
+                <input type="text"
                     disabled={tab.Subject === 'Totalsum' ? true : false} onChange={(event) => { updateArray(tab, event.target.value) }}
                     className={"tab-input float-start " + active} value={tab.Subject}></input>
             </div>

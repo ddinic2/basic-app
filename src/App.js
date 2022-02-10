@@ -7,16 +7,19 @@ const App = () => {
     const [data, setData] = useState();
     const [activeTab, setActiveTab] = useState();
     let allData;
+    let activeIndex;
 
     useEffect(() => {
         fetch('https://raw.githubusercontent.com/ddinic2/json/main/bid-list.txt')
             .then(response => response.json())
-            .then(data => setData(data));
+            .then(data => {setData(data); setActiveTab(data[0])});
     }, []);
 
     const updateLine = (item) => {
         let copyData = data;
-        allData = data
+        allData = data;
+        // let temmpAllData: BidListLine = data;
+        //console.log('all d', allData);
         findAndReplaceLine(copyData, item);
         updateAllParents(copyData[0], item);
         setData([...copyData]);
@@ -44,7 +47,7 @@ const App = () => {
             }
             updateAllParents(el, item);
         });
-    }
+    };
 
     return (
         <div className="container-fluid">
@@ -52,7 +55,7 @@ const App = () => {
             <div className="row mb-1">
                 <div className="col-12 owerflowXAuto">
                     <div className="flex">
-                        {data && data.length > 0 && <Tabs data={data} updateLine={updateLine} />}
+                        {activeTab && data && data.length > 0 && <Tabs data={data} updateLine={updateLine} activeTab={activeTab} setActiveTab={setActiveTab} />}
                     </div>
                 </div>
             </div>
@@ -87,7 +90,8 @@ const App = () => {
                     Bottom up Budget
                 </div>
             </div>
-            {data && data.length > 0 && <Line data={data} updateLine={updateLine} />}
+            {data && data.length > 0 && activeTab && activeTab.Subject === 'Totalsum' && <Line data={data} updateLine={updateLine} activeTab={activeTab} />}
+            {data && data.length > 0 && activeTab && activeTab.Subject !== 'Totalsum' && <Line data={[activeTab]} updateLine={updateLine} activeTab={activeTab} />}
         </div>
     )
 }
