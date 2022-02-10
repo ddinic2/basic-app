@@ -67,3 +67,21 @@ body{
 .primary-border-bottom{
     border-bottom: 1px solid #e8e9ec;
 }
+.vertical-binder{
+    position: absolute;
+    height: 40px;
+    border-left: 1px solid;
+    top: -4px;
+}
+.horizontal-binder{
+    position: absolute;
+    width: 10px;
+    border-bottom: 1px solid;
+    top: 20px;
+}
+.vertical-binder-last{
+    position: absolute;
+    height: 20px;
+    border-left: 1px solid;
+    top: -4px;
+}

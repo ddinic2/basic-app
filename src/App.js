@@ -62,6 +62,7 @@ const App = () => {
 
             <div className="flex tableTitle borderTableTitle pt-1 pb-1 fw-bolder fs-6">
                 <div className="flex-0_5"></div>
+                <div className="flex-0_5"></div>
                 <div className="flex-1">
                     No.
                 </div>
@@ -90,8 +91,8 @@ const App = () => {
                     Bottom up Budget
                 </div>
             </div>
-            {data && data.length > 0 && activeTab && activeTab.Subject === 'Totalsum' && <Line data={data} updateLine={updateLine} activeTab={activeTab} units={units} />}
-            {data && data.length > 0 && activeTab && activeTab.Subject !== 'Totalsum' && <Line data={[data[0].Items[activeTab.index-1]]} updateLine={updateLine} activeTab={activeTab} units={units} />}
+            {data && data.length > 0 && activeTab && activeTab.Subject === 'Totalsum' && <Line data={data} updateLine={updateLine} activeTab={activeTab} units={units} depth={0} />}
+            {data && data.length > 0 && activeTab && activeTab.Subject !== 'Totalsum' && <Line data={[data[0].Items[activeTab.index-1]]} updateLine={updateLine} activeTab={activeTab} units={units} depth={0} />}
         </div>
     )
 }

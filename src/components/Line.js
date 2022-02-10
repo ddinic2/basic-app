@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import "../../node_modules/@fortawesome/fontawesome-free/css/fontawesome.css";
 import "../../node_modules/@fortawesome/fontawesome-free/css/solid.css";
 import "../style/style.css";
+import Bindler from "./Bindler";
 
 
 
-function Line({ data, updateLine, activeTab, units }) {
+function Line({ data, updateLine, activeTab, units, depth }) {
 
     const [displayChildren, setDisplayChildren] = useState({});
 
@@ -39,6 +40,9 @@ function Line({ data, updateLine, activeTab, units }) {
                                     </button>
                                 )}
                             </div>
+                            <div className="flex-0_5">
+                               { item.Subject !== 'Totalsum' && <Bindler data={data} item={item} depth={depth} />} 
+                            </div>
                             <div className="flex-1">
                                 {item.LineId}
                             </div>
@@ -53,7 +57,7 @@ function Line({ data, updateLine, activeTab, units }) {
                             </div>
                             <div className="flex-1">
                                 <select className="form-controll form-control-sm" value={item.Unit} placeholder="Unit" onChange={(e) => setValueInItem(e, item, 'Unit')}>
-                                    <option placeholder="Unit" value=""> -- Select unit -- </option>
+                                    <option placeholder="Unit" value=""> Select unit </option>
                                     {units.map((unit) => <option placeholder="Unit" key={unit} value={unit}>{unit}</option>)}
                                 </select>
                             </div>
@@ -71,7 +75,7 @@ function Line({ data, updateLine, activeTab, units }) {
                             </div>
                         </div>
 
-                        {displayChildren[item.Id] && item.Items && <Line key={item.Subject} data={item.Items} updateLine={updateLine} activeTab={activeTab} units={units} />}
+                        {displayChildren[item.Id] && item.Items && <Line key={item.Subject} data={item.Items} updateLine={updateLine} activeTab={activeTab} units={units} depth={depth+1} />}
 
                     </li>
                 ))
