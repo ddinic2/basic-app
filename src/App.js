@@ -6,27 +6,23 @@ import Line from "./components/Line";
 const App = () => {
     const [data, setData] = useState();
     const [activeTab, setActiveTab] = useState();
-    let allData;
-    let activeIndex;
+    let units = ['m2', 'm3', 'pcs', 'km'];
 
     useEffect(() => {
         fetch('https://raw.githubusercontent.com/ddinic2/json/main/bid-list.txt')
             .then(response => response.json())
-            .then(data => {setData(data); setActiveTab(data[0])});
+            .then(data => { setData(data); setActiveTab(data[0]) });
     }, []);
 
     const updateLine = (item) => {
         let copyData = data;
-        allData = data;
-        // let temmpAllData: BidListLine = data;
-        //console.log('all d', allData);
         findAndReplaceLine(copyData, item);
         updateAllParents(copyData[0], item);
         setData([...copyData]);
     }
 
     const findAndReplaceLine = (copyData, item) => {
-        copyData.map(d => {
+        copyData.forEach(d => {
             if (d.Id === item.Id) {
                 d = item;
             }
@@ -34,16 +30,20 @@ const App = () => {
         })
     };
 
+    const preSetTab =(tab)=> {
+        setActiveTab(tab);
+    }
+
     const updateAllParents = (copyData, item) => {
         copyData.Items.forEach(el => {
             if (el.Id === item.Id) {
                 copyData.Budget = 0;
                 copyData.Quantity = 0;
-                copyData.Items.map(it => {
+                copyData.Items.forEach(it => {
                     copyData.Budget += Number(it.Budget);
                     copyData.Quantity += Number(it.Quantity);
                 })
-                updateAllParents(allData[0], copyData);
+                updateAllParents(data[0], copyData);
             }
             updateAllParents(el, item);
         });
@@ -55,7 +55,7 @@ const App = () => {
             <div className="row mb-1">
                 <div className="col-12 owerflowXAuto">
                     <div className="flex">
-                        {activeTab && data && data.length > 0 && <Tabs data={data} updateLine={updateLine} activeTab={activeTab} setActiveTab={setActiveTab} />}
+                        {data && data.length > 0 && <Tabs data={data} updateLine={updateLine} activeTab={activeTab} preSetTab={preSetTab} />}
                     </div>
                 </div>
             </div>
@@ -90,8 +90,8 @@ const App = () => {
                     Bottom up Budget
                 </div>
             </div>
-            {data && data.length > 0 && activeTab && activeTab.Subject === 'Totalsum' && <Line data={data} updateLine={updateLine} activeTab={activeTab} />}
-            {data && data.length > 0 && activeTab && activeTab.Subject !== 'Totalsum' && <Line data={[activeTab]} updateLine={updateLine} activeTab={activeTab} />}
+            {data && data.length > 0 && activeTab && activeTab.Subject === 'Totalsum' && <Line data={data} updateLine={updateLine} activeTab={activeTab} units={units} />}
+            {data && data.length > 0 && activeTab && activeTab.Subject !== 'Totalsum' && <Line data={[data[0].Items[activeTab.index-1]]} updateLine={updateLine} activeTab={activeTab} units={units} />}
         </div>
     )
 }
