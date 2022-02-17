@@ -7,7 +7,6 @@ function Bindler({data, item, depth}){
 
     useEffect(()=>{
         setBindler(data, item);
-        console.log('depth', depth);
     });
 
     const setBindler = (allData, currentItem) => {

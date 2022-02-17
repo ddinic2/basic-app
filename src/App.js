@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
+import {
+    BrowserRouter,
+    Routes,
+    Route
+} from "react-router-dom";
 import Tabs from "./components/Tabs";
 import Line from "./components/Line";
+import Navigation from "./components/Navigation";
+import 'bootstrap/dist/css/bootstrap.css';
+
 
 
 const App = () => {
@@ -30,7 +38,7 @@ const App = () => {
         })
     };
 
-    const preSetTab =(tab)=> {
+    const preSetTab = (tab) => {
         setActiveTab(tab);
     }
 
@@ -50,50 +58,61 @@ const App = () => {
     };
 
     return (
-        <div className="container-fluid">
-            <h1>Bid list</h1>
-            <div className="row mb-1">
-                <div className="col-12 owerflowXAuto">
-                    <div className="flex">
-                        {data && data.length > 0 && <Tabs data={data} updateLine={updateLine} activeTab={activeTab} preSetTab={preSetTab} />}
-                    </div>
-                </div>
-            </div>
+        <>
 
-            <div className="flex tableTitle borderTableTitle pt-1 pb-1 fw-bolder fs-6">
-                <div className="flex-0_5"></div>
-                <div className="flex-0_5"></div>
-                <div className="flex-1">
-                    No.
+            <BrowserRouter>
+                <Navigation />
+                <div className="container-fluid">
+                    <Routes>
+                        <Route path="/" element={<>
+                            <div className="row mb-1">
+                                <div className="col-12 owerflowXAuto">
+                                    <div className="flex">
+                                        {data && data.length > 0 && <Tabs data={data} updateLine={updateLine} activeTab={activeTab} preSetTab={preSetTab} />}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="flex tableTitle borderTableTitle pt-1 pb-1 fw-bolder fs-6">
+                                <div className="flex-0_5"></div>
+                                <div className="flex-0_5"></div>
+                                <div className="flex-1">
+                                    No.
+                                </div>
+                                <div className="flex-2">
+                                    Subject
+                                </div>
+                                <div className="flex-2">
+                                    Description
+                                </div>
+                                <div className="flex-1">
+                                    Quantity
+                                </div>
+                                <div className="flex-1">
+                                    Unit
+                                </div>
+                                <div className="flex-1_5">
+                                    Category
+                                </div>
+                                <div className="flex-0_5">
+                                    X
+                                </div>
+                                <div className="flex-1_5">
+                                    Account
+                                </div>
+                                <div className="flex-1_5">
+                                    Bottom up Budget
+                                </div>
+                            </div>
+                            {data && data.length > 0 && activeTab && activeTab.Subject === 'Totalsum' && <Line data={data} updateLine={updateLine} activeTab={activeTab} units={units} depth={0} />}
+                            {data && data.length > 0 && activeTab && activeTab.Subject !== 'Totalsum' && <Line data={[data[0].Items[activeTab.index - 1]]} updateLine={updateLine} activeTab={activeTab} units={units} depth={0} />}
+                        </>}></Route>
+                    </Routes>
                 </div>
-                <div className="flex-2">
-                    Subject
-                </div>
-                <div className="flex-2">
-                    Description
-                </div>
-                <div className="flex-1">
-                    Quantity
-                </div>
-                <div className="flex-1">
-                    Unit
-                </div>
-                <div className="flex-1_5">
-                    Category
-                </div>
-                <div className="flex-0_5">
-                    X
-                </div>
-                <div className="flex-1_5">
-                    Account
-                </div>
-                <div className="flex-1_5">
-                    Bottom up Budget
-                </div>
-            </div>
-            {data && data.length > 0 && activeTab && activeTab.Subject === 'Totalsum' && <Line data={data} updateLine={updateLine} activeTab={activeTab} units={units} depth={0} />}
-            {data && data.length > 0 && activeTab && activeTab.Subject !== 'Totalsum' && <Line data={[data[0].Items[activeTab.index-1]]} updateLine={updateLine} activeTab={activeTab} units={units} depth={0} />}
-        </div>
+            </BrowserRouter>
+
+
+        </>
     )
 }
 
