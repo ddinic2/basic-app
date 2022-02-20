@@ -59,7 +59,9 @@ body{
 .extend-btn > span {
     position:absolute;
     top: 0;
-    left: 3.5px
+    left: 0;
+    width: 1.2rem;
+    height: 1.2rem;
 }
 .borderTableTitle{
     border: 1px solid #e8e9ec;

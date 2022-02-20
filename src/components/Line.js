@@ -36,7 +36,7 @@ function Line({ data, updateLine, activeTab, units, depth }) {
                                             });
                                         }}
                                     >
-                                        <span>{displayChildren[item.Id] ? <i className="fas fa-minus"></i> : <i className="fas fa-plus"></i>}</span>
+                                        <span>{displayChildren[item.Id] ? <i className="fas fa-angle-down"></i> : <i className="fas fa-angle-right"></i>}</span>
                                     </button>
                                 )}
                             </div>

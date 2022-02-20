@@ -7,8 +7,8 @@ import {
 import Tabs from "./components/Tabs";
 import Line from "./components/Line";
 import Navigation from "./components/Navigation";
+import { setUuid } from "./helpers/helpers";
 import 'bootstrap/dist/css/bootstrap.css';
-
 
 
 const App = () => {
@@ -19,7 +19,7 @@ const App = () => {
     useEffect(() => {
         fetch('https://raw.githubusercontent.com/ddinic2/json/main/bid-list.txt')
             .then(response => response.json())
-            .then(data => { setData(data); setActiveTab(data[0]) });
+            .then(data => { setData(setUuid(data)); setActiveTab(data[0]) });
     }, []);
 
     const updateLine = (item) => {
