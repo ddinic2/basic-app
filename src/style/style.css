@@ -87,3 +87,10 @@ body{
     border-left: 1px solid;
     top: -4px;
 }
+.treegrid-options-holder{
+    font-size: 0.8rem;
+    position: relative;
+}
+.red{
+    color: #ff6565;
+}

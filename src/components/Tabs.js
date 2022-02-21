@@ -1,22 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import "../style/style.css";
 
 function Tabs({ data, updateLine, activeTab, preSetTab }) {
-    const [tabsArray, setTabsArray] = useState(data.concat(data[0].Items));
+
+    const uiTabs = data.concat(data[0].Items);
 
     const updateArray = (tab, value) => {
         tab.Subject = value;
-        var copyTabs = tabsArray;
+        var copyTabs = uiTabs;
         copyTabs.forEach((element, index) => {
-            if (element.Id === tab.Id) {
+            if (element.uuid === tab.uuid) {
                 copyTabs[index] = tab;
                 updateLine(tab);
             }
         });
-        setTabsArray([...copyTabs]);
     }
 
-    const tabHtml = tabsArray.map((tab, index) => {
+    const tabHtml = uiTabs.map((tab, index) => {
         let active = tab.Id === activeTab?.Id ? 'active' : '';
         tab.index = index;
         return (

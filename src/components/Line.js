@@ -3,17 +3,18 @@ import "../../node_modules/@fortawesome/fontawesome-free/css/fontawesome.css";
 import "../../node_modules/@fortawesome/fontawesome-free/css/solid.css";
 import "../style/style.css";
 import Bindler from "./Bindler";
+import OptionsHolder from "./OptionsHolder";
 
 
 
-function Line({ data, updateLine, activeTab, units, depth }) {
+function Line({ data, updateLine, activeTab, units, depth, deleteLine, openDialog, dialogOptionsIsOpen, activeItem }) {
 
     const [displayChildren, setDisplayChildren] = useState({});
 
     const setValueInItem = (e, item, ifDropdown) => {
-        if(!ifDropdown){
+        if (!ifDropdown) {
             item[e.target.placeholder] = e.target.value;
-        }else{
+        } else {
             item[ifDropdown] = e.target.value;
         }
         updateLine(item);
@@ -40,8 +41,11 @@ function Line({ data, updateLine, activeTab, units, depth }) {
                                     </button>
                                 )}
                             </div>
+                            <div className="flex-0_5 pt-2">
+                                <OptionsHolder item={item} deleteLine={deleteLine} openDialog={openDialog} data={data} dialogOptionsIsOpen={dialogOptionsIsOpen} activeItem={activeItem} />
+                            </div>
                             <div className="flex-0_5">
-                               { item.Subject !== 'Totalsum' && <Bindler data={data} item={item} depth={depth} />} 
+                                {item.Subject !== 'Totalsum' && <Bindler data={data} item={item} depth={depth} />}
                             </div>
                             <div className="flex-1">
                                 {item.LineId}
@@ -64,9 +68,6 @@ function Line({ data, updateLine, activeTab, units, depth }) {
                             <div className="flex-1_5">
                                 {item.CategoryId}
                             </div>
-                            <div className="flex-0_5">
-                                X
-                            </div>
                             <div className="flex-1_5">
                                 {item.AccountId}
                             </div>
@@ -75,7 +76,7 @@ function Line({ data, updateLine, activeTab, units, depth }) {
                             </div>
                         </div>
 
-                        {displayChildren[item.Id] && item.Items && <Line key={item.Subject} data={item.Items} updateLine={updateLine} activeTab={activeTab} units={units} depth={depth+1} />}
+                        {displayChildren[item.Id] && item.Items && <Line key={item.Subject} data={item.Items} updateLine={updateLine} activeTab={activeTab} units={units} depth={depth + 1} deleteLine={deleteLine} openDialog={openDialog} dialogOptionsIsOpen={dialogOptionsIsOpen} activeItem={activeItem} />}
 
                     </li>
                 ))

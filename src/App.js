@@ -7,13 +7,15 @@ import {
 import Tabs from "./components/Tabs";
 import Line from "./components/Line";
 import Navigation from "./components/Navigation";
-import { setUuid } from "./helpers/helpers";
+import { setUuid, deleteFromTreegrid } from "./helpers/helpers";
 import 'bootstrap/dist/css/bootstrap.css';
 
 
 const App = () => {
     const [data, setData] = useState();
     const [activeTab, setActiveTab] = useState();
+    const [dialogOptionsIsOpen, setDialogOptionsIsOpen] = useState(false);
+    const [activeItem, setActiveItem] = useState();
     let units = ['m2', 'm3', 'pcs', 'km'];
 
     useEffect(() => {
@@ -40,6 +42,29 @@ const App = () => {
 
     const preSetTab = (tab) => {
         setActiveTab(tab);
+    }
+
+    const deleteLine = (line) => {
+        let copyData = data;
+        copyData = deleteFromTreegrid(copyData, line);
+        setData([...copyData]);
+        if (activeTab.uuid === line.uuid) {
+            setActiveTab(data[0])
+        }
+    }
+
+    const openDialog = (item) => {
+        if (!dialogOptionsIsOpen) {
+            document.addEventListener("click", handleOutsideClick, false)
+        } else {
+            document.removeEventListener("click", handleOutsideClick, false)
+        }
+        setActiveItem({ ...item });
+        setDialogOptionsIsOpen(!dialogOptionsIsOpen); // check this not work
+    }
+
+    const handleOutsideClick = e => {
+        // openDialog();
     }
 
     const updateAllParents = (copyData, item) => {
@@ -76,6 +101,7 @@ const App = () => {
                             <div className="flex tableTitle borderTableTitle pt-1 pb-1 fw-bolder fs-6">
                                 <div className="flex-0_5"></div>
                                 <div className="flex-0_5"></div>
+                                <div className="flex-0_5"></div>
                                 <div className="flex-1">
                                     No.
                                 </div>
@@ -94,9 +120,7 @@ const App = () => {
                                 <div className="flex-1_5">
                                     Category
                                 </div>
-                                <div className="flex-0_5">
-                                    X
-                                </div>
+
                                 <div className="flex-1_5">
                                     Account
                                 </div>
@@ -104,8 +128,8 @@ const App = () => {
                                     Bottom up Budget
                                 </div>
                             </div>
-                            {data && data.length > 0 && activeTab && activeTab.Subject === 'Totalsum' && <Line data={data} updateLine={updateLine} activeTab={activeTab} units={units} depth={0} />}
-                            {data && data.length > 0 && activeTab && activeTab.Subject !== 'Totalsum' && <Line data={[data[0].Items[activeTab.index - 1]]} updateLine={updateLine} activeTab={activeTab} units={units} depth={0} />}
+                            {data && data.length > 0 && activeTab && activeTab.Subject === 'Totalsum' && <Line data={data} updateLine={updateLine} activeTab={activeTab} units={units} depth={0} deleteLine={deleteLine} openDialog={openDialog} dialogOptionsIsOpen={dialogOptionsIsOpen} activeItem={activeItem} />}
+                            {data && data.length > 0 && activeTab && activeTab.Subject !== 'Totalsum' && <Line data={[data[0].Items[activeTab.index - 1]]} updateLine={updateLine} activeTab={activeTab} units={units} depth={0} deleteLine={deleteLine} openDialog={openDialog} dialogOptionsIsOpen={dialogOptionsIsOpen} activeItem={activeItem} />}
                         </>}></Route>
                     </Routes>
                 </div>
