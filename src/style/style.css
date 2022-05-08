@@ -1,10 +1,12 @@
-body{
+body {
     color: #4d4f5c;
 }
-.tableTitle{
+
+.tableTitle {
     font-size: 1.15rem;
 }
-.tab-input{
+
+.tab-input {
     max-width: 9rem;
     border-radius: 7px 7px 0 0;
     margin-bottom: 0.4rem;
@@ -14,39 +16,49 @@ body{
     border-bottom: 1px solid lightgray;
     font-size: 0.9rem;
 }
-.tab-input:focus{
+
+.tab-input:focus {
     outline: none;
 }
+
 .tab-input.active {
     background-color: #6dbdb4;
     color: white;
 }
-.owerflowXAuto{
-    overflow-x:auto;
+
+.owerflowXAuto {
+    overflow-x: auto;
 }
-.flex{
+
+.flex {
     display: flex;
 }
-.flex-0_5{
+
+.flex-0_5 {
     flex: 0.5;
 }
-.flex-1{
+
+.flex-1 {
     flex: 1;
 }
-.flex-1_5{
+
+.flex-1_5 {
     flex: 1.5;
 }
-.flex-2{
+
+.flex-2 {
     flex: 2;
 }
 
-.bidListUl > li {
+.bidListUl>li {
     list-style-type: none;
 }
+
 .bidListUl {
     padding: 0;
 }
-.extend-btn{
+
+.extend-btn {
     border: 2px solid #6dbdb4;
     width: 1.5rem;
     height: 1.5rem;
@@ -56,41 +68,56 @@ body{
     background-color: white;
     position: relative;
 }
-.extend-btn > span {
-    position:absolute;
+
+.extend-btn>span {
+    position: absolute;
     top: 0;
     left: 0;
     width: 1.2rem;
     height: 1.2rem;
 }
-.borderTableTitle{
+
+.borderTableTitle {
     border: 1px solid #e8e9ec;
 }
-.primary-border-bottom{
+
+.primary-border-bottom {
     border-bottom: 1px solid #e8e9ec;
 }
-.vertical-binder{
+
+.vertical-binder {
     position: absolute;
     height: 40px;
     border-left: 1px solid;
     top: -4px;
 }
-.horizontal-binder{
+
+.horizontal-binder {
     position: absolute;
     width: 10px;
     border-bottom: 1px solid;
     top: 20px;
 }
-.vertical-binder-last{
+
+.vertical-binder-last {
     position: absolute;
     height: 20px;
     border-left: 1px solid;
     top: -4px;
 }
-.treegrid-options-holder{
+
+.treegrid-options-holder {
     font-size: 0.8rem;
     position: relative;
 }
-.red{
+
+.red {
     color: #ff6565;
+}
+
+.styleNode {
+    padding: 5px;
+    border-radius: 8px;
+    display: inline-block;
+    border: 1px solid red;
 }

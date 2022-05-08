@@ -9,6 +9,8 @@ import Line from "./components/Line";
 import Navigation from "./components/Navigation";
 import { setUuid, deleteFromTreegrid } from "./helpers/helpers";
 import 'bootstrap/dist/css/bootstrap.css';
+import OrgChart from "./components/OrgChart";
+import OrgChart2 from "./components/OrgChart2";
 
 
 const App = () => {
@@ -89,7 +91,7 @@ const App = () => {
                 <Navigation />
                 <div className="container-fluid">
                     <Routes>
-                        <Route path="/" element={<>
+                        <Route path="/" exact element={<>
                             <div className="row mb-1">
                                 <div className="col-12 owerflowXAuto">
                                     <div className="flex">
@@ -131,6 +133,9 @@ const App = () => {
                             {data && data.length > 0 && activeTab && activeTab.Subject === 'Totalsum' && <Line data={data} updateLine={updateLine} activeTab={activeTab} units={units} depth={0} deleteLine={deleteLine} openDialog={openDialog} dialogOptionsIsOpen={dialogOptionsIsOpen} activeItem={activeItem} />}
                             {data && data.length > 0 && activeTab && activeTab.Subject !== 'Totalsum' && <Line data={[data[0].Items[activeTab.index - 1]]} updateLine={updateLine} activeTab={activeTab} units={units} depth={0} deleteLine={deleteLine} openDialog={openDialog} dialogOptionsIsOpen={dialogOptionsIsOpen} activeItem={activeItem} />}
                         </>}></Route>
+
+                        <Route exact path="/org-chart" element={<OrgChart/>}></Route>
+                        <Route path="/org-chart-2" element={<OrgChart2/>}></Route>
                     </Routes>
                 </div>
             </BrowserRouter>
